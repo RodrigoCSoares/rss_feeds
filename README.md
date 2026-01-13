@@ -3,7 +3,7 @@
 Generate an RSS feed from Meetup.
 
 Source:
-`https://www.meetup.com/cruquiusweg-fun-group/events/ical/`
+`https://www.meetup.com/<group>/events/ical/`
 
 Output:
 `rss.xml` at the repo root.
