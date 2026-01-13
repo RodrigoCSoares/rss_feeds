@@ -1,6 +1,6 @@
 # rss_feeds
 
-Generate an RSS feed from the Cruquiusweg Fun Group Meetup iCal feed.
+Generate an RSS feed from Meetup.
 
 Source:
 `https://www.meetup.com/cruquiusweg-fun-group/events/ical/`
