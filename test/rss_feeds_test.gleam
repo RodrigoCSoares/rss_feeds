@@ -16,8 +16,8 @@ pub fn parse_feeds_default_output_test() {
 
   let result = rss_feeds.parse_feeds(toml)
 
-  assert result ==
-    Ok([
+  assert result
+    == Ok([
       rss_feeds.FeedConfig(
         "one",
         "One",

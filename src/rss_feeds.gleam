@@ -82,10 +82,13 @@ fn generate_feed(feed: FeedConfig) -> Result(Nil, String) {
           case write_file(output, contents) {
             Ok(_) -> Ok(Nil)
             Error(reason) ->
-              Error("Failed to write " <> output <> " for " <> id <> ": " <> reason)
+              Error(
+                "Failed to write " <> output <> " for " <> id <> ": " <> reason,
+              )
           }
         }
-        Error(_) -> Error("Failed to decode iCal response body for " <> id <> ".")
+        Error(_) ->
+          Error("Failed to decode iCal response body for " <> id <> ".")
       }
     Error(reason) ->
       Error("Failed to fetch iCal feed for " <> id <> ": " <> reason)
@@ -130,9 +133,19 @@ fn parse_feed_lines(
             "[[feed]]" ->
               case finalize_feed(current, in_feed) {
                 Ok(Some(feed)) ->
-                  parse_feed_lines(rest, [feed, ..feeds], FeedDraft("", "", "", "", "", ""), True)
+                  parse_feed_lines(
+                    rest,
+                    [feed, ..feeds],
+                    FeedDraft("", "", "", "", "", ""),
+                    True,
+                  )
                 Ok(None) ->
-                  parse_feed_lines(rest, feeds, FeedDraft("", "", "", "", "", ""), True)
+                  parse_feed_lines(
+                    rest,
+                    feeds,
+                    FeedDraft("", "", "", "", "", ""),
+                    True,
+                  )
                 Error(reason) -> Error(reason)
               }
             _ ->
@@ -171,7 +184,12 @@ fn finalize_feed(
 
 fn draft_has_content(draft: FeedDraft) -> Bool {
   let FeedDraft(id, title, link, description, ical_url, output) = draft
-  id != "" || title != "" || link != "" || description != "" || ical_url != "" || output != ""
+  id != ""
+  || title != ""
+  || link != ""
+  || description != ""
+  || ical_url != ""
+  || output != ""
 }
 
 fn draft_to_config(draft: FeedDraft) -> Result(FeedConfig, String) {
@@ -195,7 +213,14 @@ fn draft_to_config(draft: FeedDraft) -> Result(FeedConfig, String) {
                         True -> "rss/" <> id <> ".xml"
                         False -> output
                       }
-                      Ok(FeedConfig(id, title, link, description, ical_url, output))
+                      Ok(FeedConfig(
+                        id,
+                        title,
+                        link,
+                        description,
+                        ical_url,
+                        output,
+                      ))
                     }
                   }
               }
