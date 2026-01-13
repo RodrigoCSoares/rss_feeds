@@ -1,26 +1,36 @@
 # rss_feeds
 
-Generate an RSS feed from Meetup.
+Generate RSS feeds from one or more Meetup iCal feeds.
 
-Source:
-`https://www.meetup.com/<group>/events/ical/`
+Sources are configured in `feeds.toml` as a list of feeds.
 
 Output:
-`rss.xml` at the repo root.
+`rss/{id}.xml` for each feed.
+
+Example `feeds.toml`:
+
+```toml
+[[feed]]
+id = "cruquiusweg-fun-group"
+title = "Cruquiusweg Fun Group"
+link = "https://www.meetup.com/cruquiusweg-fun-group/"
+description = "Meetup events feed"
+ical_url = "https://www.meetup.com/cruquiusweg-fun-group/events/ical/"
+```
+
+## Feeds
+
+- Cruquiusweg Fun Group — feed: `rss/cruquiusweg-fun-group.xml` — source: https://www.meetup.com/cruquiusweg-fun-group/events/ical/
+
+Keep this list in sync with `feeds.toml` when adding new feeds.
 
 ## Development
 
 ```sh
-gleam run   # Generate RSS to stdout
+gleam run   # Generate RSS files into rss/
 gleam test  # Run the tests
-```
-
-To write the file locally:
-
-```sh
-gleam run > rss.xml
 ```
 
 ## Automation
 
-GitHub Actions runs the generator daily and commits `rss.xml` to `main`.
+GitHub Actions runs the generator daily and commits files in `rss/` to `main`.
